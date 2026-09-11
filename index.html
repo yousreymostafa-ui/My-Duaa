@@ -1,1 +1,87 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f1e9" id="themeColor"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><title>أدعيتي</title><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="styles.css"></head><body><main class="app"><header class="header"><div class="brand"><div class="brand-row"><svg class="arch" viewBox="0 0 64 80" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M10 76V30c0-10 5-17 12-22 5-4 6-7 6-10 0-3 2-5 4-5s4 2 4 5c0 3 1 6 6 10 7 5 12 12 12 22v46"/><path d="M22 76V40c0-9 4-14 10-19 6 5 10 10 10 19v36"/></svg><div><h1>أدعيتي</h1><div class="count" id="count"></div></div></div><div class="tagline">كل دعاء هو باب أمل مفتوح ..</div></div><div class="header-actions"><button class="icon" id="settingsBtn">Aa</button><button class="icon" id="themeBtn">☾</button></div></header><div class="hero"></div><section class="list" id="list"></section><button class="add" id="addBtn">إضافة دعاء ＋</button></main><div class="overlay" id="editorOverlay"><section class="sheet"><div class="handle"></div><div class="sheet-head"><h2 id="editorTitle">إضافة دعاء</h2><button class="close" id="closeEditor">×</button></div><div class="hint">العنوان اختياري، ويمكن إخفاء جميع العناوين من الإعدادات.</div><input class="field" id="titleInput" placeholder="عنوان اختياري"><textarea class="editor" id="duaInput" placeholder="اكتب أو الصق الدعاء هنا..."></textarea><input class="field" id="refInput" placeholder="مرجع اختياري" style="margin-top:9px"><div class="form-actions"><button class="primary" id="saveBtn">حفظ</button><button class="secondary" id="cancelEditor">إلغاء</button></div></section></div><div class="overlay" id="settingsOverlay"><section class="sheet"><div class="handle"></div><div class="sheet-head"><h2>التخصيص</h2><div class="sheet-actions"><button class="mini" id="resetBtn">إعادة</button><button class="close" id="closeSettings">×</button></div></div><div class="settings-preview" id="preview"></div><div class="tabs"><button class="tab active" data-tab="layout">الواجهة</button><button class="tab" data-tab="text">النص</button></div><div class="panel active" data-panel="layout"><div class="grid"><div class="control full"><div class="switch-row"><div><div class="label">إظهار العناوين</div><div class="value">العناوين اختيارية ويمكن إخفاؤها بالكامل.</div></div><button class="switch" id="titleSwitch"></button></div></div><div class="control"><div class="row"><span class="label">المسافة</span><span class="value" id="gapVal"></span></div><input type="range" id="gapRange" min="8" max="24" step="1"></div><div class="control"><div class="row"><span class="label">الزوايا</span><span class="value" id="radiusVal"></span></div><input type="range" id="radiusRange" min="18" max="36" step="1"></div><div class="control"><div class="row"><span class="label">حشو أفقي</span><span class="value" id="padXVal"></span></div><input type="range" id="padXRange" min="12" max="28" step="1"></div><div class="control"><div class="row"><span class="label">حشو رأسي</span><span class="value" id="padYVal"></span></div><input type="range" id="padYRange" min="14" max="32" step="1"></div><div class="control full"><div class="row"><span class="label">المظهر</span></div><div class="segs two" id="themeSeg"><button class="seg" data-value="light">فاتح</button><button class="seg" data-value="dark">داكن</button></div></div></div></div><div class="panel" data-panel="text"><div class="grid"><div class="control"><div class="row"><span class="label">حجم الخط</span><span class="value" id="fontVal"></span></div><input type="range" id="fontRange" min="12" max="34" step="1"></div><div class="control"><div class="row"><span class="label">تباعد السطور</span><span class="value" id="lineVal"></span></div><input type="range" id="lineRange" min="1.05" max="2.1" step=".05"></div><div class="control full"><div class="row"><span class="label">سماكة الخط</span></div><div class="segs" id="weightSeg"><button class="seg" data-value="400">خفيف</button><button class="seg" data-value="500">عادي</button><button class="seg" data-value="700">عريض</button></div></div></div></div></section></div><div class="overlay" id="actionOverlay"><section class="sheet" style="max-width:520px"><div class="handle"></div><div class="sheet-head"><h2>خيارات الدعاء</h2><button class="close" id="actionClose">×</button></div><div class="grid"><button class="secondary" id="actionEdit">تعديل</button><button class="secondary" id="actionUp">تحريك لأعلى</button><button class="secondary" id="actionDown">تحريك لأسفل</button><button class="secondary" id="actionDelete" style="color:#b24e46">حذف</button></div></section></div><div class="toast" id="toast">تم النسخ</div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f1e9" id="themeColor">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>أدعيتي</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="app">
+  <header class="header">
+    <div class="brand">
+      <div class="brand-row">
+        <svg class="arch" viewBox="0 0 64 80" fill="none" stroke="currentColor" stroke-width="3.2" aria-hidden="true"><path d="M10 76V30c0-10 5-17 12-22 5-4 6-7 6-10 0-3 2-5 4-5s4 2 4 5c0 3 1 6 6 10 7 5 12 12 12 22v46"/><path d="M22 76V40c0-9 4-14 10-19 6 5 10 10 10 19v36"/></svg>
+        <div><h1>أدعيتي</h1><div class="count" id="count"></div></div>
+      </div>
+      <div class="tagline">كل دعاء هو باب أمل مفتوح ..</div>
+    </div>
+    <div class="header-actions">
+      <button class="icon" id="settingsBtn" aria-label="إعدادات النص">Aa</button>
+      <button class="icon" id="themeBtn" aria-label="تغيير المظهر">☾</button>
+    </div>
+  </header>
+
+  <button class="top-add" id="topAddBtn">إضافة دعاء ＋</button>
+  <div class="hero"></div>
+  <section class="list" id="list"></section>
+  <button class="add" id="addBtn">إضافة دعاء ＋</button>
+</main>
+
+<div class="overlay" id="editorOverlay">
+  <section class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2 id="editorTitle">إضافة دعاء</h2><button class="close" id="closeEditor">×</button></div>
+    <div class="hint">العنوان اختياري، ويمكن إخفاء جميع العناوين من الإعدادات.</div>
+    <input class="field" id="titleInput" placeholder="عنوان اختياري">
+    <textarea class="editor" id="duaInput" placeholder="اكتب أو الصق الدعاء هنا..."></textarea>
+    <input class="field" id="refInput" placeholder="مرجع اختياري" style="margin-top:9px">
+    <div class="form-actions"><button class="primary" id="saveBtn">حفظ</button><button class="secondary" id="cancelEditor">إلغاء</button></div>
+  </section>
+</div>
+
+<div class="overlay" id="settingsOverlay">
+  <section class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2>التخصيص</h2><div class="sheet-actions"><button class="mini" id="resetBtn">إعادة</button><button class="close" id="closeSettings">×</button></div></div>
+    <div class="settings-preview" id="preview"></div>
+    <div class="tabs"><button class="tab active" data-tab="layout">الواجهة</button><button class="tab" data-tab="text">النص</button></div>
+
+    <div class="panel active" data-panel="layout">
+      <div class="grid">
+        <div class="control full"><div class="switch-row"><div><div class="label">إظهار العناوين</div><div class="value">العناوين اختيارية ويمكن إخفاؤها بالكامل.</div></div><button class="switch" id="titleSwitch"></button></div></div>
+        <div class="control"><div class="row"><span class="label">المسافة بين البطاقات</span><span class="value" id="gapVal"></span></div><input type="range" id="gapRange" min="6" max="24" step="1"></div>
+        <div class="control"><div class="row"><span class="label">الزوايا</span><span class="value" id="radiusVal"></span></div><input type="range" id="radiusRange" min="16" max="36" step="1"></div>
+        <div class="control"><div class="row"><span class="label">مسافة النص يمين / يسار</span><span class="value" id="padXVal"></span></div><input type="range" id="padXRange" min="4" max="28" step="1"></div>
+        <div class="control"><div class="row"><span class="label">مسافة النص أعلى / أسفل</span><span class="value" id="padYVal"></span></div><input type="range" id="padYRange" min="6" max="32" step="1"></div>
+        <div class="control full"><div class="row"><span class="label">المظهر</span></div><div class="segs two" id="themeSeg"><button class="seg" data-value="light">فاتح</button><button class="seg" data-value="dark">داكن</button></div></div>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="text">
+      <div class="grid">
+        <div class="control"><div class="row"><span class="label">حجم الخط</span><span class="value" id="fontVal"></span></div><input type="range" id="fontRange" min="12" max="34" step="1"></div>
+        <div class="control"><div class="row"><span class="label">تباعد السطور</span><span class="value" id="lineVal"></span></div><input type="range" id="lineRange" min="1.05" max="2.1" step=".05"></div>
+        <div class="control full"><div class="row"><span class="label">سماكة الخط</span></div><div class="segs" id="weightSeg"><button class="seg" data-value="400">خفيف</button><button class="seg" data-value="500">عادي</button><button class="seg" data-value="700">عريض</button></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="overlay" id="actionOverlay">
+  <section class="sheet" style="max-width:520px">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2>خيارات الدعاء</h2><button class="close" id="actionClose">×</button></div>
+    <div class="grid"><button class="secondary" id="actionEdit">تعديل</button><button class="secondary" id="actionUp">تحريك لأعلى</button><button class="secondary" id="actionDown">تحريك لأسفل</button><button class="secondary" id="actionDelete" style="color:#b24e46">حذف</button></div>
+  </section>
+</div>
+<div class="toast" id="toast">تم النسخ</div>
+<script src="app.js"></script>
+</body>
+</html>
