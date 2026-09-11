@@ -25,9 +25,8 @@ function closeActions(){actionId=null;$('#actionOverlay').classList.remove('show
 function move(dir){const i=duas.findIndex(x=>x.id===actionId),j=i+dir;if(i<0||j<0||j>=duas.length)return;[duas[i],duas[j]]=[duas[j],duas[i]];persist();closeActions();render()}
 function del(){duas=duas.filter(x=>x.id!==actionId);persist();closeActions();render()}
 function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>x.classList.remove('show'),1100)}
-$('#addBtn').onclick=$('#topAddBtn').onclick=()=>openEditor();
+$('#addBtn').onclick=$('#quickAddBtn').onclick=()=>openEditor();
 $('#settingsBtn').onclick=()=>{$('#settingsOverlay').classList.add('show');sync()};
-$('#themeBtn').onclick=()=>set('theme',settings.theme==='light'?'dark':'light');
 $('#closeEditor').onclick=$('#cancelEditor').onclick=closeEditor;$('#saveBtn').onclick=saveEditor;
 $('#closeSettings').onclick=()=>$('#settingsOverlay').classList.remove('show');$('#resetBtn').onclick=()=>{settings={...defaults};persistSettings();apply()};
 $('#titleSwitch').onclick=()=>set('showTitles',!settings.showTitles);
