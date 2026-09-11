@@ -1,0 +1,12 @@
+{
+  "name": "أدعيتي",
+  "short_name": "أدعيتي",
+  "description": "تطبيق بسيط لحفظ وقراءة الأدعية",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5efe5",
+  "theme_color": "#17605a",
+  "lang": "ar",
+  "dir": "rtl"
+}
