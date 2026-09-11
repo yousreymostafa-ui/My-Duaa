@@ -1,15 +1,17 @@
-# أدعيتي — My Duaa
+# My Duaa — أدعيتي
 
-تطبيق عربي بسيط لحفظ الأدعية بدل الملاحظات.
+تطبيق عربي بسيط لحفظ الأدعية وقراءتها بدل تطبيق الملاحظات.
 
 ## المميزات
-- إضافة الدعاء كنص مباشر فقط
-- تعديل، حذف، نسخ، وتحريك الأدعية
-- Light / Dark / System themes
-- تخصيص حجم الخط، تباعد السطور، والمسافة بين البطاقات
-- حفظ محلي على الجهاز
-- PWA + Offline support
-- Mobile-first RTL UI
-
-## GitHub Pages
-المشروع جاهز للنشر تلقائيًا من خلال GitHub Actions.
+- إضافة وتعديل وحذف الأدعية
+- Light / Dark / System mode
+- Compact live customization panel
+- Card shape: Auto / Rectangle / Square
+- Card width: Compact / Normal / Full
+- Card height, radius, padding and spacing
+- Solid / Soft / Glass card styles
+- Border and shadow controls
+- Arabic text size, line spacing, alignment, weight and font style
+- Accent colors: Green / Blue / Sand
+- Local storage and offline PWA support
+- GitHub Pages ready
