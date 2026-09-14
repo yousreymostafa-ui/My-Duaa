@@ -20,10 +20,11 @@
         <svg class="arch" viewBox="0 0 64 80" fill="none" stroke="currentColor" stroke-width="3.2" aria-hidden="true"><path d="M10 76V30c0-10 5-17 12-22 5-4 6-7 6-10 0-3 2-5 4-5s4 2 4 5c0 3 1 6 6 10 7 5 12 12 12 22v46"/><path d="M22 76V40c0-9 4-14 10-19 6 5 10 10 10 19v36"/></svg>
         <div><h1>أدعيتي</h1><div class="count" id="count"></div></div>
       </div>
-      <div class="tagline">كل دعاء هو باب أمل مفتوح ..</div>
+      <div class="tagline" id="tagline">كل دعاء هو باب أمل مفتوح ..</div>
     </div>
     <div class="header-actions">
-      <button class="icon" id="settingsBtn" aria-label="إعدادات النص">Aa</button>
+      <button class="icon text-icon" id="settingsBtn" aria-label="الإعدادات">Aa</button>
+      <button class="icon" id="reorderBtn" aria-label="إعادة ترتيب الأدعية" title="إعادة الترتيب">↕</button>
       <button class="icon" id="quickAddBtn" aria-label="إضافة دعاء">＋</button>
     </div>
   </header>
@@ -34,32 +35,74 @@
 </main>
 
 <div class="overlay" id="editorOverlay">
-  <section class="sheet">
+  <section class="sheet editor-sheet">
     <div class="handle"></div>
     <div class="sheet-head"><h2 id="editorTitle">إضافة دعاء</h2><button class="close" id="closeEditor">×</button></div>
-    <div class="hint">العنوان اختياري، ويمكن إخفاء جميع العناوين من الإعدادات.</div>
+    <div class="hint">العنوان والصورة اختياريان. يمكنك تغيير شكل كل بطاقة بشكل مستقل.</div>
     <input class="field" id="titleInput" placeholder="عنوان اختياري">
     <textarea class="editor" id="duaInput" placeholder="اكتب أو الصق الدعاء هنا..."></textarea>
     <input class="field" id="refInput" placeholder="مرجع اختياري" style="margin-top:9px">
+
+    <div class="editor-section">
+      <div class="section-title">شكل هذه البطاقة</div>
+      <div class="shape-options" id="cardShapeSeg">
+        <button class="shape-choice active" data-value="wide"><span class="shape-preview rectangle"></span><strong>مستطيل</strong><small>عرض كامل</small></button>
+        <button class="shape-choice" data-value="square"><span class="shape-preview square"></span><strong>مربع</strong><small>بطاقتان في الصف</small></button>
+      </div>
+    </div>
+
+    <div class="editor-section">
+      <div class="section-title">صورة داخل البطاقة <span class="optional">اختياري</span></div>
+      <div class="image-drop" id="imageDrop" tabindex="0">
+        <div id="imageEmpty" class="image-empty">
+          <div class="image-symbol">▧</div>
+          <strong>أضف صورة</strong>
+          <span>اختر صورة أو الصقها هنا</span>
+        </div>
+        <img id="imagePreview" alt="معاينة الصورة" hidden>
+      </div>
+      <input id="imageFile" type="file" accept="image/*" hidden>
+      <div class="image-actions">
+        <button class="secondary compact" id="chooseImageBtn" type="button">اختيار صورة</button>
+        <button class="secondary compact" id="pasteImageBtn" type="button">لصق صورة</button>
+        <button class="secondary compact danger-text" id="removeImageBtn" type="button" hidden>إزالة</button>
+      </div>
+      <div class="hint image-hint">يمكنك أيضًا نسخ صورة ثم الضغط داخل مساحة الصورة ولصقها.</div>
+    </div>
+
     <div class="form-actions"><button class="primary" id="saveBtn">حفظ</button><button class="secondary" id="cancelEditor">إلغاء</button></div>
   </section>
 </div>
 
 <div class="overlay" id="settingsOverlay">
-  <section class="sheet">
+  <section class="sheet settings-sheet">
     <div class="handle"></div>
     <div class="sheet-head"><h2>التخصيص</h2><div class="sheet-actions"><button class="mini" id="resetBtn">إعادة</button><button class="close" id="closeSettings">×</button></div></div>
     <div class="settings-preview" id="preview"></div>
-    <div class="tabs"><button class="tab active" data-tab="layout">الواجهة</button><button class="tab" data-tab="text">النص</button></div>
+    <div class="tabs"><button class="tab active" data-tab="design">التصميم</button><button class="tab" data-tab="layout">البطاقات</button><button class="tab" data-tab="text">النص</button></div>
 
-    <div class="panel active" data-panel="layout">
+    <div class="panel active" data-panel="design">
+      <div class="theme-gallery" id="themeGallery">
+        <button class="theme-option" data-theme-value="classic"><span class="theme-mini classic"><i></i></span><b>كلاسيكي</b></button>
+        <button class="theme-option" data-theme-value="minimal"><span class="theme-mini minimal"><i></i></span><b>Minimal</b></button>
+        <button class="theme-option" data-theme-value="serenity"><span class="theme-mini serenity"><i></i></span><b>سكينة</b></button>
+        <button class="theme-option" data-theme-value="night"><span class="theme-mini night"><i></i></span><b>ليلي</b></button>
+        <button class="theme-option" data-theme-value="sandstone"><span class="theme-mini sandstone"><i></i></span><b>رملي</b></button>
+        <button class="theme-option" data-theme-value="blue"><span class="theme-mini blue"><i></i></span><b>أزرق هادئ</b></button>
+        <button class="theme-option" data-theme-value="floral"><span class="theme-mini floral"><i></i></span><b>زهري</b></button>
+        <button class="theme-option" data-theme-value="geometric"><span class="theme-mini geometric"><i></i></span><b>هندسي</b></button>
+        <button class="theme-option" data-theme-value="darkgold"><span class="theme-mini darkgold"><i></i></span><b>أسود ذهبي</b></button>
+        <button class="theme-option" data-theme-value="sunset"><span class="theme-mini sunset"><i></i></span><b>غروب</b></button>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="layout">
       <div class="grid">
         <div class="control full"><div class="switch-row"><div><div class="label">إظهار العناوين</div><div class="value">العناوين اختيارية ويمكن إخفاؤها بالكامل.</div></div><button class="switch" id="titleSwitch"></button></div></div>
-        <div class="control"><div class="row"><span class="label">المسافة بين البطاقات</span><span class="value" id="gapVal"></span></div><input type="range" id="gapRange" min="6" max="24" step="1"></div>
-        <div class="control"><div class="row"><span class="label">الزوايا</span><span class="value" id="radiusVal"></span></div><input type="range" id="radiusRange" min="16" max="36" step="1"></div>
-        <div class="control"><div class="row"><span class="label">مسافة النص يمين / يسار</span><span class="value" id="padXVal"></span></div><input type="range" id="padXRange" min="4" max="28" step="1"></div>
-        <div class="control"><div class="row"><span class="label">مسافة النص أعلى / أسفل</span><span class="value" id="padYVal"></span></div><input type="range" id="padYRange" min="6" max="32" step="1"></div>
-        <div class="control full"><div class="row"><span class="label">المظهر</span></div><div class="segs two" id="themeSeg"><button class="seg" data-value="light">فاتح</button><button class="seg" data-value="dark">داكن</button></div></div>
+        <div class="control"><div class="row"><span class="label">المسافة بين البطاقات</span><span class="value" id="gapVal"></span></div><input type="range" id="gapRange" min="4" max="24" step="1"></div>
+        <div class="control"><div class="row"><span class="label">الزوايا</span><span class="value" id="radiusVal"></span></div><input type="range" id="radiusRange" min="10" max="38" step="1"></div>
+        <div class="control"><div class="row"><span class="label">مسافة النص يمين / يسار</span><span class="value" id="padXVal"></span></div><input type="range" id="padXRange" min="2" max="30" step="1"></div>
+        <div class="control"><div class="row"><span class="label">مسافة النص أعلى / أسفل</span><span class="value" id="padYVal"></span></div><input type="range" id="padYRange" min="4" max="34" step="1"></div>
       </div>
     </div>
 
@@ -74,13 +117,31 @@
 </div>
 
 <div class="overlay" id="actionOverlay">
-  <section class="sheet" style="max-width:520px">
+  <section class="sheet action-sheet">
     <div class="handle"></div>
     <div class="sheet-head"><h2>خيارات الدعاء</h2><button class="close" id="actionClose">×</button></div>
-    <div class="grid"><button class="secondary" id="actionEdit">تعديل</button><button class="secondary" id="actionUp">تحريك لأعلى</button><button class="secondary" id="actionDown">تحريك لأسفل</button><button class="secondary" id="actionDelete" style="color:#b24e46">حذف</button></div>
+    <div class="action-grid">
+      <button class="secondary" id="actionEdit">تعديل</button>
+      <button class="secondary" id="actionToggleShape">تحويل إلى مربع</button>
+      <button class="secondary" id="actionTop">إلى الأول</button>
+      <button class="secondary" id="actionUp">لأعلى</button>
+      <button class="secondary" id="actionDown">لأسفل</button>
+      <button class="secondary" id="actionBottom">إلى الأخير</button>
+      <button class="secondary danger-text full-action" id="actionDelete">حذف</button>
+    </div>
   </section>
 </div>
-<div class="toast" id="toast">تم النسخ</div>
+
+<div class="overlay" id="reorderOverlay">
+  <section class="sheet reorder-sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><div><h2>إعادة ترتيب الأدعية</h2><div class="hint">استخدم الأسهم أو انقل الدعاء مباشرة للأول أو الأخير.</div></div><button class="close" id="reorderClose">×</button></div>
+    <div class="reorder-list" id="reorderList"></div>
+    <button class="primary reorder-done" id="reorderDone">تم</button>
+  </section>
+</div>
+
+<div class="toast" id="toast">تم</div>
 <script src="app.js"></script>
 </body>
 </html>
