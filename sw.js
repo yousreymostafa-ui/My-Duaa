@@ -1,16 +1,18 @@
-const CACHE='my-duaa-v16';
-const ASSETS=['./','./index.html','./styles.css','./app.js','./v16.js','./manifest.json','./logo.svg','./app-icon.png'];
+const CACHE='my-duaa-v17';
+const ASSETS=['./','./index.html','./styles.css','./app.js','./v16.js','./v17.js','./manifest.json','./logo.svg','./app-icon.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>e.waitUntil((async()=>{await self.clients.claim();const keys=await caches.keys();await Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)));const wins=await self.clients.matchAll({type:'window'});await Promise.all(wins.map(c=>c.navigate(c.url).catch(()=>null)))} )()));
 async function combinedApp(req){
   const cache=await caches.open(CACHE);
-  let base,patch;
+  let base,p16,p17;
   try{base=await fetch(req,{cache:'no-store'})}catch{base=await cache.match('./app.js')}
-  try{patch=await fetch('./v16.js',{cache:'no-store'})}catch{patch=await cache.match('./v16.js')}
+  try{p16=await fetch('./v16.js',{cache:'no-store'})}catch{p16=await cache.match('./v16.js')}
+  try{p17=await fetch('./v17.js',{cache:'no-store'})}catch{p17=await cache.match('./v17.js')}
   if(!base)return new Response('',{status:503});
   const baseText=await base.text();
-  const patchText=patch?await patch.text():'';
-  return new Response(baseText+'\n'+patchText,{headers:{'Content-Type':'application/javascript; charset=utf-8','Cache-Control':'no-cache'}});
+  const p16Text=p16?await p16.text():'';
+  const p17Text=p17?await p17.text():'';
+  return new Response(baseText+'\n'+p16Text+'\n'+p17Text,{headers:{'Content-Type':'application/javascript; charset=utf-8','Cache-Control':'no-cache'}});
 }
 self.addEventListener('fetch',e=>{
   const u=new URL(e.request.url);
