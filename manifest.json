@@ -1,7 +1,7 @@
 {
   "name": "أدعيتي",
   "short_name": "أدعيتي",
-  "description": "تطبيق بسيط لحفظ وقراءة الأدعية",
+  "description": "تطبيق شخصي لحفظ وقراءة الأدعية والروابط",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -10,6 +10,7 @@
   "lang": "ar",
   "dir": "rtl",
   "icons": [
-    {"src":"app-icon.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {"src":"logo.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"},
+    {"src":"app-icon.png","sizes":"512x512","type":"image/png","purpose":"any"}
   ]
 }
