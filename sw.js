@@ -1,5 +1,5 @@
-const CACHE='my-duaa-v22';
-const ASSETS=['./','./index.html','./styles.css','./app.js','./v16.js','./v17.js','./v18.js','./v19.js','./v20.js','./v21.js','./v22.js','./manifest.json','./logo.svg','./app-icon.png'];
+const CACHE='my-duaa-v23';
+const ASSETS=['./','./index.html','./styles.css','./app.js','./v16.js','./v17.js','./v18.js','./v19.js','./v20.js','./v21.js','./v22.js','./manifest.json','./logo.svg','./app-icon.png','./duaa-header.jpg'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>e.waitUntil((async()=>{await self.clients.claim();const keys=await caches.keys();await Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)));const wins=await self.clients.matchAll({type:'window'});await Promise.all(wins.map(c=>c.navigate(c.url).catch(()=>null)))} )()));
 async function combinedApp(req){
