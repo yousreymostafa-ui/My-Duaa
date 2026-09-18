@@ -1037,3 +1037,41 @@ function saveEditor(){
 
   try{apply()}catch{}
 })();
+
+
+/* Clean editor structure + toolbar alignment */
+(function releaseEditorR2(){
+  function wrapField(el,label,optional){
+    if(!el||el.closest('.release-input-block'))return;
+    const block=document.createElement('label');
+    block.className='release-input-block';
+    const head=document.createElement('span');
+    head.className='release-input-label';
+    head.innerHTML='<strong>'+label+'</strong>'+(optional?'<small>اختياري</small>':'');
+    el.parentNode.insertBefore(block,el);
+    block.append(head,el);
+    el.removeAttribute('style');
+  }
+  const sheet=document.querySelector('#editorOverlay .editor-sheet');
+  if(sheet){
+    const title=document.querySelector('#titleInput');
+    const dua=document.querySelector('#duaInput');
+    const ref=document.querySelector('#refInput');
+    let group=sheet.querySelector('.release-edit-content');
+    if(!group){
+      group=document.createElement('div');
+      group.className='release-edit-content';
+      const hint=sheet.querySelector('.hint');
+      (hint||sheet.querySelector('.sheet-head'))?.insertAdjacentElement('afterend',group);
+    }
+    [title,dua,ref].forEach(el=>{if(el&&!el.closest('.release-edit-content'))group.appendChild(el)});
+    wrapField(title,'العنوان',true);
+    wrapField(dua,'نص الدعاء',false);
+    wrapField(ref,'المرجع',true);
+    sheet.querySelector('#cardShapeSeg')?.closest('.editor-section')?.classList.add('release-appearance-section');
+    sheet.querySelector('#v21CardColorSection')?.classList.add('release-color-section');
+    sheet.querySelector('#v21InsertSection')?.classList.add('release-position-section');
+    sheet.querySelector('#imageDrop')?.closest('.editor-section')?.classList.add('release-image-section');
+    sheet.querySelector('#notesInput')?.closest('.editor-section')?.classList.add('release-notes-section');
+  }
+})();
