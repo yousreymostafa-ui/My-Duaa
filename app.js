@@ -1075,3 +1075,27 @@ function saveEditor(){
     sheet.querySelector('#notesInput')?.closest('.editor-section')?.classList.add('release-notes-section');
   }
 })();
+
+
+/* Optional Islamic theme packs — preserve current theme unless user selects one */
+(function islamicThemePackR3(){
+  const islamic=new Set(['mosqueclassic','ottomanblue','kaabanight','greendome']);
+  const dark=new Set(['night','darkgold','midnightblue','kaabanight']);
+  const previousApply=apply;
+  apply=function(){
+    previousApply();
+    const root=document.documentElement;
+    root.classList.toggle('is-islamic-theme',islamic.has(settings.design));
+    const meta=document.querySelector('#themeColor');
+    if(meta){
+      const colors={
+        mosqueclassic:'#f5efe2',
+        ottomanblue:'#0e3e58',
+        kaabanight:'#070908',
+        greendome:'#e8efe4'
+      };
+      meta.content=colors[settings.design]||(dark.has(settings.design)?'#091521':'#f6f1e9');
+    }
+  };
+  try{apply()}catch{}
+})();
