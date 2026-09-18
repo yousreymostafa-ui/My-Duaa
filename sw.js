@@ -1,4 +1,4 @@
-const CACHE='my-duaa-clean-r2';
+const CACHE='my-duaa-clean-r3';
 const CORE=['./','./index.html','./styles.css','./app.js','./manifest.json','./logo.svg','./app-icon.png'];
 self.addEventListener('install',event=>{
   self.skipWaiting();
