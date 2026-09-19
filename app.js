@@ -1122,3 +1122,78 @@ function saveEditor(){
   };
   try{apply()}catch{}
 })();
+
+
+/* Reliable theme switching + lightweight live card settings */
+(function settingsReliabilityR5(){
+  const root=document.documentElement;
+  const cssMap={
+    fontSize:['--fs',v=>v+'px','fontVal',v=>v+'px'],
+    lineHeight:['--lh',v=>v,'lineVal',v=>Number(v).toFixed(2)],
+    radius:['--radius',v=>v+'px','radiusVal',v=>v+'px'],
+    padX:['--px',v=>v+'px','padXVal',v=>v+'px'],
+    padY:['--py',v=>v+'px','padYVal',v=>v+'px'],
+    gap:['--gap',v=>v+'px','gapVal',v=>v+'px']
+  };
+  let saveTimer=0;
+  const persistSoon=()=>{
+    clearTimeout(saveTimer);
+    saveTimer=setTimeout(()=>{try{persistSettings()}catch{}},90);
+  };
+  const liveSetting=(key,value)=>{
+    settings[key]=value;
+    const cfg=cssMap[key];
+    if(cfg){
+      root.style.setProperty(cfg[0],cfg[1](value));
+      const out=document.getElementById(cfg[2]);
+      if(out)out.textContent=cfg[3](value);
+    }
+    try{renderPreview()}catch{}
+    persistSoon();
+  };
+  const ranges={
+    fontRange:'fontSize',
+    lineRange:'lineHeight',
+    radiusRange:'radius',
+    padXRange:'padX',
+    padYRange:'padY',
+    gapRange:'gap'
+  };
+  Object.entries(ranges).forEach(([id,key])=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.oninput=e=>liveSetting(key,+e.target.value);
+    el.onchange=e=>{liveSetting(key,+e.target.value);try{persistSettings()}catch{}};
+  });
+
+  document.querySelectorAll('#weightSeg .seg').forEach(btn=>{
+    btn.onclick=()=>{
+      settings.weight=String(btn.dataset.value);
+      root.style.setProperty('--fw',settings.weight);
+      document.querySelectorAll('#weightSeg .seg').forEach(x=>x.classList.toggle('active',x===btn));
+      try{persistSettings();renderPreview()}catch{}
+    };
+  });
+
+  const gallery=document.getElementById('themeGallery');
+  if(gallery){
+    gallery.addEventListener('click',e=>{
+      const btn=e.target.closest('.theme-option');
+      if(!btn||!gallery.contains(btn))return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      settings.design=btn.dataset.themeValue;
+      try{persistSettings()}catch{}
+      try{apply()}catch{
+        root.dataset.design=settings.design;
+        document.querySelectorAll('#themeGallery .theme-option').forEach(x=>x.classList.toggle('active',x===btn));
+      }
+    },true);
+  }
+
+  /* Re-apply saved values once after every legacy style module has finished. */
+  Object.entries(cssMap).forEach(([key,cfg])=>{
+    if(settings[key]!==undefined)root.style.setProperty(cfg[0],cfg[1](settings[key]));
+  });
+  try{syncSettingsUI()}catch{}
+})();

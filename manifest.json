@@ -2,7 +2,7 @@
   "name": "أدعيتي",
   "short_name": "أدعيتي",
   "description": "تطبيق شخصي لحفظ وقراءة الأدعية والروابط",
-  "start_url": "./?source=pwa",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f6f1e9",
@@ -15,12 +15,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
-    },
-    {
-      "src": "app-icon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
     },
     {
       "src": "logo.svg",

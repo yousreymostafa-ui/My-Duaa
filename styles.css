@@ -783,3 +783,35 @@ html[data-design="mamluk"] .reader{background:#082b29!important}
   html[data-design="fajrsky"] .release-banner{aspect-ratio:2.05/1!important}
   html[data-design="mamluk"] .release-banner{aspect-ratio:2.25/1!important}
 }
+
+
+/* ===== Settings reliability R5 ===== */
+/* User card controls always win, regardless of the selected visual theme. */
+html body #duaaScreen #list{gap:var(--gap)!important}
+html body #duaaScreen #list .square-row,
+html body #duaaScreen #list .compact-row{gap:var(--gap)!important}
+html body #duaaScreen #list .card,
+html body #duaaScreen #list .card.wide,
+html body #duaaScreen #list .card.square,
+html body #duaaScreen #list .card.half{
+  border-radius:var(--radius)!important;
+  padding:var(--py) var(--px)!important;
+}
+html body #duaaScreen #list .card:before{border-radius:max(4px,calc(var(--radius) - 6px))}
+
+/* Keep full UI theme selectors visually distinct while still respecting card settings. */
+html[data-design="quranpage"] body #duaaScreen #list .card{
+  border-style:double!important;
+}
+html[data-design="mamluk"] body #duaaScreen #list .card{
+  border-style:solid!important;
+}
+html[data-design="fajrsky"] body #duaaScreen #list .card{
+  -webkit-backdrop-filter:blur(15px);
+  backdrop-filter:blur(15px);
+}
+
+/* Settings controls stay responsive on iOS. */
+#settingsOverlay input[type="range"]{touch-action:pan-x;accent-color:var(--accent)}
+#settingsOverlay .panel{will-change:auto}
+#settingsOverlay .control{contain:layout style}
