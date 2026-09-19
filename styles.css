@@ -496,3 +496,290 @@ html[data-design="greendome"] .reader{background:linear-gradient(180deg,#eaf1e5,
   .islamic-theme-option b{font-size:10px!important}
   html[data-design="kaabanight"] .release-banner:before{font-size:32px;right:8%}
 }
+
+
+/* ===== Complete UI theme packs R4 ===== */
+.full-ui-divider{margin-top:11px!important;border-top-style:dashed!important}
+.full-ui-theme-option{
+  position:relative;
+  overflow:hidden;
+  min-height:112px;
+  padding:6px!important;
+  background:var(--surface)!important;
+}
+.full-ui-theme-option.active{padding:5px!important}
+.full-ui-theme-option:after{
+  content:"واجهة";
+  position:absolute;
+  left:11px;
+  top:11px;
+  z-index:2;
+  padding:2px 6px;
+  border-radius:99px;
+  background:rgba(255,255,255,.78);
+  color:#655e52;
+  font-size:7.5px;
+  font-weight:900;
+  letter-spacing:.2px;
+}
+.full-ui-theme-option b{font-size:10.5px!important}
+.theme-mini.mihrablight{height:82px;background:linear-gradient(145deg,#fbf5e8,#e7eee4);color:#335548}
+.theme-mini.mihrablight:before{right:50%;top:9px;transform:translateX(50%);font-size:9px}
+.theme-mini.mihrablight:after{
+  content:"";position:absolute;left:50%;top:5px;transform:translateX(-50%);
+  width:64px;height:58px;border:1.5px solid rgba(174,145,83,.55);border-bottom:0;
+  border-radius:50% 50% 8px 8px/62% 62% 8px 8px;
+}
+.theme-mini.mihrablight i{inset:auto 8px 7px;height:22px;border-radius:12px;background:rgba(255,255,255,.88)!important}
+.theme-mini.quranpage{height:82px;background:#efe2bf;color:#4a3b27;box-shadow:inset 0 0 0 3px #c5a66c,inset 0 0 0 5px #f7edcf}
+.theme-mini.quranpage:before{right:50%;top:9px;transform:translateX(50%);font-size:9px}
+.theme-mini.quranpage:after{
+  content:"✦";position:absolute;left:50%;top:26px;transform:translateX(-50%);
+  color:#9b7440;font-size:14px;
+}
+.theme-mini.quranpage i{inset:auto 11px 8px;height:24px;border-radius:2px;background:rgba(255,250,232,.88)!important;border:1px solid rgba(137,98,48,.25)}
+.theme-mini.fajrsky{height:82px;background:linear-gradient(160deg,#dcecff 0%,#eadff7 48%,#f7e1d0 100%);color:#455a78}
+.theme-mini.fajrsky:before{right:50%;top:10px;transform:translateX(50%);font-size:9px}
+.theme-mini.fajrsky:after{
+  content:"☾";position:absolute;left:11px;top:8px;color:#b18d62;font-size:17px;opacity:.8
+}
+.theme-mini.fajrsky i{inset:auto 8px 7px;height:25px;border-radius:14px;background:rgba(255,255,255,.58)!important;border:1px solid rgba(255,255,255,.68)}
+.theme-mini.mamluk{height:82px;background:repeating-linear-gradient(45deg,#0d413b,#0d413b 9px,#123d38 9px,#123d38 18px);color:#e3c279}
+.theme-mini.mamluk:before{right:50%;top:9px;transform:translateX(50%);font-size:9px}
+.theme-mini.mamluk:after{
+  content:"◆";position:absolute;left:12px;top:8px;color:#d0aa5d;font-size:13px
+}
+.theme-mini.mamluk i{inset:auto 8px 7px;height:24px;border-radius:3px;background:#153f3a!important;border:1px solid rgba(220,181,96,.55)}
+
+/* Theme tokens */
+html[data-design="mihrablight"]{
+  --bg:#f4f0e6;--bg2:#eaf0e8;--surface:#fffdf8;--surface2:#f3f5ed;--text:#23372e;--muted:#7c837b;
+  --line:#dedacb;--accent:#4e7561;--gold:#b08f55;--shadow:0 11px 26px rgba(54,68,57,.075);--hero-opacity:.16;
+}
+html[data-design="quranpage"]{
+  --bg:#e8d8ae;--bg2:#ddc99a;--surface:#f9edc8;--surface2:#f2e2b8;--text:#3f3222;--muted:#826f50;
+  --line:#bfa16b;--accent:#775b32;--gold:#98723d;--shadow:0 9px 22px rgba(78,55,24,.12);--hero-opacity:.12;
+}
+html[data-design="fajrsky"]{
+  --bg:#dfeaf7;--bg2:#eee4f1;--surface:rgba(255,255,255,.72);--surface2:rgba(255,255,255,.46);--text:#314357;--muted:#718095;
+  --line:rgba(116,136,160,.22);--accent:#5a7892;--gold:#b38c62;--shadow:0 14px 34px rgba(79,101,128,.12);--hero-opacity:.10;
+}
+html[data-design="mamluk"]{
+  --bg:#082b29;--bg2:#0f3833;--surface:#103a35;--surface2:#16443e;--text:#f4eddc;--muted:#aab9ae;
+  --line:#315e56;--accent:#d0ad62;--gold:#dfbd72;--shadow:0 14px 30px rgba(0,0,0,.30);--hero-opacity:.24;
+}
+
+/* 1. Mihrab Light — vertically framed, calm, architectural */
+html[data-design="mihrablight"] body{
+  background:
+    radial-gradient(circle at 50% -6%,rgba(176,143,85,.10),transparent 32%),
+    linear-gradient(180deg,#f7f2e7,#edf2ea)!important;
+}
+html[data-design="mihrablight"] .release-banner{
+  aspect-ratio:2.75/1!important;
+  margin:0 -2px!important;
+  border-radius:0 0 52px 52px!important;
+  background:linear-gradient(180deg,#fbf7ec,#edf3e8)!important;
+  border:1px solid rgba(176,143,85,.16);
+  border-top:0;
+  box-shadow:0 10px 28px rgba(62,75,59,.07)!important;
+}
+html[data-design="mihrablight"] .release-banner:before{
+  content:"";position:absolute;z-index:0;left:50%;top:13px;transform:translateX(-50%);
+  width:min(330px,72%);height:82%;border:1.5px solid rgba(176,143,85,.25);border-bottom:0;
+  border-radius:50% 50% 16px 16px/55% 55% 12px 12px;
+}
+html[data-design="mihrablight"] .release-scene{opacity:.58}
+html[data-design="mihrablight"] .release-arch{fill:rgba(255,253,248,.72);stroke:rgba(176,143,85,.18)}
+html[data-design="mihrablight"] .release-mosques{fill:rgba(78,117,97,.10);stroke:rgba(78,117,97,.20)}
+html[data-design="mihrablight"] .release-brand img{width:48px;height:57px}
+html[data-design="mihrablight"] .release-brand h1{font-size:38px!important;color:#315644!important}
+html[data-design="mihrablight"] .release-top .v17-actions{
+  margin:-13px 18px 0!important;
+  border-radius:999px!important;
+  padding:8px 11px 7px!important;
+  background:#fffdf8!important;
+  border:1px solid rgba(176,143,85,.18)!important;
+  box-shadow:0 9px 22px rgba(54,68,57,.08)!important;
+}
+html[data-design="mihrablight"] .release-top .v17-action .icon,
+html[data-design="mihrablight"] .release-top .v17-action .small-tool{
+  border-radius:18px 18px 11px 11px/22px 22px 11px 11px!important;
+  background:#f1f5ed!important;color:#426a56!important;border:0!important;
+}
+html[data-design="mihrablight"] .release-top .v17-action.add-action .icon{background:#4e7561!important;color:white!important}
+html[data-design="mihrablight"] #list{gap:10px!important}
+html[data-design="mihrablight"] .card{
+  border:0!important;border-radius:24px!important;
+  box-shadow:0 6px 18px rgba(56,72,59,.065)!important;
+  background:#fffdf8!important;
+}
+html[data-design="mihrablight"] .card:before{
+  content:"";position:absolute;inset:7px;border:1px solid rgba(176,143,85,.10);border-radius:18px;pointer-events:none
+}
+html[data-design="mihrablight"] .card-badge{
+  border-radius:16px 16px 8px 8px!important;background:#edf3e9!important;color:#4e7561!important;border:0!important
+}
+
+/* 2. Quran Page — book/page composition, double rules, centered reading */
+html[data-design="quranpage"] body{
+  background:
+    linear-gradient(rgba(112,78,37,.035) 1px,transparent 1px) 0 0/100% 26px,
+    linear-gradient(180deg,#eadab2,#e2cf9f)!important;
+}
+html[data-design="quranpage"] .release-banner{
+  aspect-ratio:3.4/1!important;margin:4px 3px 0!important;border-radius:7px!important;
+  background:#f4e5bc!important;
+  border:3px double #b18c50!important;
+  box-shadow:0 5px 14px rgba(82,59,29,.12)!important;
+}
+html[data-design="quranpage"] .release-scene{display:none!important}
+html[data-design="quranpage"] .release-banner:before,
+html[data-design="quranpage"] .release-banner:after{
+  content:"✦";position:absolute;top:50%;transform:translateY(-50%);color:#99713a;font-size:18px;opacity:.72
+}
+html[data-design="quranpage"] .release-banner:before{right:22px}
+html[data-design="quranpage"] .release-banner:after{left:22px}
+html[data-design="quranpage"] .release-brand{padding:10px 58px!important}
+html[data-design="quranpage"] .release-brand img{display:none!important}
+html[data-design="quranpage"] .release-brand h1{font-size:34px!important;color:#4a3821!important}
+html[data-design="quranpage"] .release-brand p{font-size:11px!important;color:#796142!important}
+html[data-design="quranpage"] .release-rule{margin:5px 0 3px!important;color:#9d773d!important}
+html[data-design="quranpage"] .release-count{top:8px;left:8px;background:#f8eccb!important;border-radius:4px!important;color:#77592e!important}
+html[data-design="quranpage"] .release-top .v17-actions{
+  margin:8px 4px 0!important;padding:5px 2px 7px!important;
+  border:0!important;border-top:1px solid rgba(119,89,46,.28)!important;border-bottom:1px solid rgba(119,89,46,.28)!important;
+  border-radius:0!important;background:transparent!important;box-shadow:none!important;
+}
+html[data-design="quranpage"] .release-top .v17-action .icon,
+html[data-design="quranpage"] .release-top .v17-action .small-tool{
+  width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;flex-basis:38px!important;
+  border:0!important;background:transparent!important;color:#6d512b!important;border-radius:0!important;
+}
+html[data-design="quranpage"] .release-top .v17-action.add-action .icon{
+  background:#785c31!important;color:#f8edcf!important;border-radius:50%!important
+}
+html[data-design="quranpage"] .release-top .v17-label{color:#6e5839!important;font-size:8.5px!important}
+html[data-design="quranpage"] #list{gap:11px!important}
+html[data-design="quranpage"] .card{
+  position:relative;background:#f8eac4!important;border:3px double #bea169!important;border-radius:7px!important;
+  box-shadow:0 4px 13px rgba(81,57,25,.09)!important;text-align:center!important;
+}
+html[data-design="quranpage"] .card:after{
+  content:"❖";position:absolute;left:50%;bottom:7px;transform:translateX(-50%);color:rgba(143,101,49,.28);font-size:11px
+}
+html[data-design="quranpage"] .card-head{justify-content:center!important}
+html[data-design="quranpage"] .title-wrap{justify-content:center!important}
+html[data-design="quranpage"] .card-title{color:#77582d!important}
+html[data-design="quranpage"] .card-badge{background:transparent!important;border:0!important;color:#8d6936!important}
+html[data-design="quranpage"] .dua{text-align:center!important}
+html[data-design="quranpage"] .ref{text-align:center!important;color:#8a724f!important}
+html[data-design="quranpage"] .card-actions{justify-content:center!important}
+
+/* 3. Fajr Sky — airy gradient + glass UI */
+html[data-design="fajrsky"] body{
+  background:
+    radial-gradient(circle at 80% 4%,rgba(255,225,184,.62),transparent 22%),
+    radial-gradient(circle at 16% 12%,rgba(204,220,255,.68),transparent 29%),
+    linear-gradient(180deg,#dce9f7 0%,#ebe3f1 44%,#f5e5dd 100%)!important;
+  background-attachment:fixed!important;
+}
+html[data-design="fajrsky"] .release-banner{
+  aspect-ratio:2.6/1!important;
+  border-radius:0 0 38px 38px!important;
+  background:
+    radial-gradient(circle at 76% 24%,rgba(255,235,193,.70),transparent 24%),
+    linear-gradient(155deg,rgba(205,224,247,.78),rgba(231,215,239,.72) 55%,rgba(248,224,207,.72))!important;
+  border:1px solid rgba(255,255,255,.60);
+  box-shadow:0 16px 38px rgba(83,99,128,.13)!important;
+}
+html[data-design="fajrsky"] .release-scene{opacity:.28}
+html[data-design="fajrsky"] .release-arch{fill:rgba(255,255,255,.22);stroke:rgba(255,255,255,.42)}
+html[data-design="fajrsky"] .release-mosques{fill:rgba(88,112,143,.10);stroke:rgba(88,112,143,.18)}
+html[data-design="fajrsky"] .release-birds{stroke:rgba(100,107,141,.32)}
+html[data-design="fajrsky"] .release-brand h1{color:#435b78!important}
+html[data-design="fajrsky"] .release-brand p{color:#6c7183!important}
+html[data-design="fajrsky"] .release-count{
+  background:rgba(255,255,255,.48)!important;border-color:rgba(255,255,255,.62)!important;color:#5e6680!important;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)
+}
+html[data-design="fajrsky"] .release-top .v17-actions{
+  margin:-17px 8px 0!important;background:rgba(255,255,255,.48)!important;border:1px solid rgba(255,255,255,.62)!important;
+  box-shadow:0 12px 30px rgba(83,99,128,.12)!important;-webkit-backdrop-filter:blur(16px)!important;backdrop-filter:blur(16px)!important;
+}
+html[data-design="fajrsky"] .release-top .v17-action .icon,
+html[data-design="fajrsky"] .release-top .v17-action .small-tool{
+  background:rgba(255,255,255,.54)!important;color:#55728e!important;border:1px solid rgba(255,255,255,.64)!important;
+}
+html[data-design="fajrsky"] .release-top .v17-action.add-action .icon{
+  background:linear-gradient(145deg,#6688a4,#8779a0)!important;border:0!important;color:white!important
+}
+html[data-design="fajrsky"] .card{
+  background:rgba(255,255,255,.54)!important;border:1px solid rgba(255,255,255,.63)!important;
+  box-shadow:0 12px 30px rgba(83,99,128,.09)!important;
+  -webkit-backdrop-filter:blur(15px);backdrop-filter:blur(15px);
+}
+html[data-design="fajrsky"] .card-badge{background:rgba(255,255,255,.48)!important;color:#657f9b!important;border-color:rgba(255,255,255,.62)!important}
+html[data-design="fajrsky"] .card-title{color:#65758d!important}
+
+/* 4. Mamluk — architectural dark emerald, square geometry */
+html[data-design="mamluk"] body{
+  background:
+    linear-gradient(45deg,rgba(222,189,114,.035) 25%,transparent 25%,transparent 75%,rgba(222,189,114,.035) 75%) 0 0/28px 28px,
+    linear-gradient(-45deg,rgba(222,189,114,.028) 25%,transparent 25%,transparent 75%,rgba(222,189,114,.028) 75%) 14px 14px/28px 28px,
+    linear-gradient(180deg,#072b28,#0c3732)!important;
+}
+html[data-design="mamluk"] .release-banner{
+  aspect-ratio:3/1!important;margin:4px 2px 0!important;border-radius:5px!important;
+  background:linear-gradient(145deg,#0c3732,#133f38)!important;
+  border:1px solid rgba(222,189,114,.46)!important;
+  box-shadow:0 10px 27px rgba(0,0,0,.25)!important;
+}
+html[data-design="mamluk"] .release-banner:before{
+  content:"";position:absolute;inset:7px;border:1px solid rgba(222,189,114,.20);pointer-events:none
+}
+html[data-design="mamluk"] .release-arch{fill:rgba(7,34,32,.32);stroke:rgba(222,189,114,.28)}
+html[data-design="mamluk"] .release-haze{fill:rgba(222,189,114,.04)}
+html[data-design="mamluk"] .release-mosques{fill:rgba(222,189,114,.08);stroke:rgba(222,189,114,.28)}
+html[data-design="mamluk"] .release-birds{stroke:rgba(222,189,114,.35)}
+html[data-design="mamluk"] .release-brand h1{color:#efd79b!important}
+html[data-design="mamluk"] .release-brand p{color:#b7c7b7!important}
+html[data-design="mamluk"] .release-brand img{filter:brightness(0) saturate(100%) invert(78%) sepia(35%) saturate(784%) hue-rotate(356deg) brightness(94%)}
+html[data-design="mamluk"] .release-count{border-radius:3px!important;background:#103833!important;color:#dfbd72!important;border-color:#806d43!important}
+html[data-design="mamluk"] .release-top .v17-actions{
+  margin:7px 2px 0!important;border-radius:5px!important;background:#0f3934!important;border:1px solid #3b5f56!important;
+  box-shadow:none!important;padding:8px 10px!important;
+}
+html[data-design="mamluk"] .release-top .v17-action .icon,
+html[data-design="mamluk"] .release-top .v17-action .small-tool{
+  border-radius:3px!important;background:#17443e!important;color:#d9bb76!important;border:1px solid #46695f!important;box-shadow:none!important
+}
+html[data-design="mamluk"] .release-top .v17-action.add-action .icon{
+  background:#d0ad62!important;color:#0d332f!important;border-color:#d0ad62!important
+}
+html[data-design="mamluk"] .release-top .v17-label{color:#b9c6bd!important}
+html[data-design="mamluk"] #list{gap:9px!important}
+html[data-design="mamluk"] .card{
+  background:#103a35!important;border:1px solid #496b60!important;border-radius:6px!important;
+  box-shadow:0 7px 20px rgba(0,0,0,.20)!important;
+}
+html[data-design="mamluk"] .card:before,
+html[data-design="mamluk"] .card:after{
+  content:"";position:absolute;width:16px;height:16px;pointer-events:none
+}
+html[data-design="mamluk"] .card:before{right:6px;top:6px;border-right:2px solid rgba(223,189,114,.56);border-top:2px solid rgba(223,189,114,.56)}
+html[data-design="mamluk"] .card:after{left:6px;bottom:6px;border-left:2px solid rgba(223,189,114,.56);border-bottom:2px solid rgba(223,189,114,.56)}
+html[data-design="mamluk"] .card-title{color:#dfbd72!important}
+html[data-design="mamluk"] .card-badge{border-radius:3px!important;background:#173f39!important;color:#dfbd72!important;border:1px solid #5a6d55!important}
+html[data-design="mamluk"] .action{color:#b4c0b6!important}
+html[data-design="mamluk"] .action-sep{background:#38554e!important}
+html[data-design="mamluk"] .reader{background:#082b29!important}
+
+@media(max-width:520px){
+  html[data-design="mihrablight"] .release-banner{aspect-ratio:2.15/1!important}
+  html[data-design="mihrablight"] .release-top .v17-actions{margin-left:8px!important;margin-right:8px!important}
+  html[data-design="quranpage"] .release-banner{aspect-ratio:2.65/1!important}
+  html[data-design="quranpage"] .release-brand h1{font-size:31px!important}
+  html[data-design="fajrsky"] .release-banner{aspect-ratio:2.05/1!important}
+  html[data-design="mamluk"] .release-banner{aspect-ratio:2.25/1!important}
+}

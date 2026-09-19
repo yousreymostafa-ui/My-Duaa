@@ -1099,3 +1099,26 @@ function saveEditor(){
   };
   try{apply()}catch{}
 })();
+
+
+/* Complete UI themes — optional only; current theme remains untouched */
+(function fullUiThemesR4(){
+  const fullUi=new Set(['mihrablight','quranpage','fajrsky','mamluk']);
+  const previousApply=apply;
+  apply=function(){
+    previousApply();
+    const root=document.documentElement;
+    root.classList.toggle('is-full-ui-theme',fullUi.has(settings.design));
+    const colors={
+      mihrablight:'#f4f0e6',
+      quranpage:'#e8d8ae',
+      fajrsky:'#dfeaf7',
+      mamluk:'#082b29'
+    };
+    if(fullUi.has(settings.design)){
+      const meta=document.querySelector('#themeColor');
+      if(meta)meta.content=colors[settings.design];
+    }
+  };
+  try{apply()}catch{}
+})();
