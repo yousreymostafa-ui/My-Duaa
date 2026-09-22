@@ -1309,4 +1309,38 @@ function saveEditor(){
   `;
   document.head.appendChild(s);
   try{apply()}catch{}
-})();
+})();window.testDuaaNotification = async function () {
+  try {
+    const { LocalNotifications } = Capacitor.Plugins;
+
+    let perm = await LocalNotifications.checkPermissions();
+
+    if (perm.display !== 'granted') {
+      perm = await LocalNotifications.requestPermissions();
+    }
+
+    if (perm.display !== 'granted') {
+      alert('لم يتم السماح بالإشعارات');
+      return;
+    }
+
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          title: 'أدعيتي',
+          body: 'اللهم اجعل هذا اليوم خيرًا وبركة',
+          id: 1001,
+          schedule: {
+            at: new Date(Date.now() + 10000)
+          },
+          sound: 'default'
+        }
+      ]
+    });
+
+    alert('تم جدولة إشعار تجريبي بعد 10 ثوانٍ');
+  } catch (err) {
+    console.error(err);
+    alert('حدث خطأ في تشغيل الإشعارات');
+  }
+};
