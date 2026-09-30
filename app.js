@@ -1310,3 +1310,132 @@ function saveEditor(){
   document.head.appendChild(s);
   try{apply()}catch{}
 })();
+
+/* Full-screen Duaa reader R9 */
+(function readerR9(){
+  if(window.__myDuaaReaderR9)return;
+  window.__myDuaaReaderR9=true;
+
+  var reader=document.getElementById('reader');
+  if(!reader)return;
+  reader.classList.add('reader-v2');
+  reader.innerHTML=
+    '<div class="reader-top">'+
+      '<button class="reader-close" id="readerClose" aria-label="رجوع">›</button>'+
+      '<div class="reader-heading"><div class="reader-heading-title" id="readerHeaderTitle">دعاء</div></div>'+
+      '<div class="reader-tools" aria-label="أدوات الدعاء">'+
+        '<button class="reader-tool" id="readerMenu" aria-label="خيارات الدعاء"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h11M5 12h11M5 17h11" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="19" cy="7" r="1.3" fill="currentColor"/><circle cx="19" cy="12" r="1.3" fill="currentColor"/><circle cx="19" cy="17" r="1.3" fill="currentColor"/></svg></button>'+
+        '<button class="reader-tool reader-favorite" id="readerFavorite" aria-label="إضافة للمفضلة"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.9L12 16.52 6.7 19.31l1.01-5.9-4.29-4.18 5.93-.86L12 3Z" fill="currentColor"/></svg></button>'+
+        '<button class="reader-tool reader-aa" id="readerTextSettings" aria-label="إعدادات النص">Aa</button>'+
+      '</div>'+
+    '</div>'+
+    '<div class="reader-progress-block">'+
+      '<div class="reader-progress-text" id="readerProgressText">0%</div>'+
+      '<div class="reader-progress-track"><div class="reader-progress-fill" id="readerProgressFill"></div></div>'+
+    '</div>'+
+    '<div class="reader-stage" id="readerStage">'+
+      '<article class="reader-card">'+
+        '<div class="reader-title" id="readerTitle"></div>'+
+        '<img class="reader-image" id="readerImage" alt="" hidden>'+
+        '<div class="reader-text" id="readerText"></div>'+
+        '<div class="reader-ref-wrap"><span class="reader-info" aria-hidden="true">i</span><div class="reader-ref" id="readerRef"></div></div>'+
+        '<div class="reader-dots" id="readerDots" aria-hidden="true"></div>'+
+      '</article>'+
+    '</div>'+
+    '<div class="reader-bottom">'+
+      '<div class="reader-count" id="readerCount"></div>'+
+      '<div class="reader-index-badge" id="readerIndexBadge">1</div>'+
+      '<button class="reader-share" id="readerShare" aria-label="مشاركة الدعاء"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0-11L8.5 6.5M12 3l3.5 3.5M7 10H5.8A1.8 1.8 0 0 0 4 11.8v6.4A1.8 1.8 0 0 0 5.8 20h12.4a1.8 1.8 0 0 0 1.8-1.8v-6.4a1.8 1.8 0 0 0-1.8-1.8H17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'+
+    '</div>';
+
+  var favKey='my_duaa_reader_favorites_v1';
+  var favorites=new Set();
+  try{favorites=new Set(JSON.parse(localStorage.getItem(favKey)||'[]'))}catch(e){}
+
+  function currentDua(){return readerItems&&readerItems.length?readerItems[readerIndex]:null}
+  function saveFavorites(){try{localStorage.setItem(favKey,JSON.stringify(Array.from(favorites)))}catch(e){}}
+  function syncFavorite(){
+    var d=currentDua(),btn=document.getElementById('readerFavorite');
+    if(!d||!btn)return;
+    var on=favorites.has(d.id);
+    btn.classList.toggle('active',on);
+    btn.setAttribute('aria-label',on?'إزالة من المفضلة':'إضافة للمفضلة');
+  }
+  function renderDots(){
+    var host=document.getElementById('readerDots');
+    if(!host)return;
+    var total=readerItems.length,max=7;
+    var start=Math.max(0,Math.min(readerIndex-Math.floor(max/2),Math.max(0,total-max)));
+    var end=Math.min(total,start+max),html='';
+    for(var i=start;i<end;i++)html+='<span class="reader-dot'+(i===readerIndex?' active':'')+'"></span>';
+    host.innerHTML=html;
+  }
+  function syncReaderChrome(){
+    var d=currentDua();if(!d)return;
+    var total=readerItems.length,pos=readerIndex+1,pct=Math.round(pos/total*100);
+    document.getElementById('readerHeaderTitle').textContent=d.title||'دعاء';
+    document.getElementById('readerProgressText').textContent=pct+'%';
+    document.getElementById('readerProgressFill').style.width=pct+'%';
+    document.getElementById('readerIndexBadge').textContent=pos;
+    var wrap=document.querySelector('.reader-ref-wrap');
+    if(wrap)wrap.hidden=!d.ref;
+    renderDots();syncFavorite();
+  }
+
+  var originalUpdateReader=updateReader;
+  updateReader=function(){
+    originalUpdateReader();
+    syncReaderChrome();
+  };
+
+  document.getElementById('readerClose').onclick=closeReader;
+  document.getElementById('readerFavorite').onclick=function(){
+    var d=currentDua();if(!d)return;
+    if(favorites.has(d.id)){favorites.delete(d.id);toast('تمت الإزالة من المفضلة')}
+    else{favorites.add(d.id);toast('تمت الإضافة للمفضلة')}
+    saveFavorites();syncFavorite();
+  };
+  document.getElementById('readerMenu').onclick=function(){
+    var d=currentDua();if(!d)return;
+    closeReader();
+    setTimeout(function(){openActions(d.id)},60);
+  };
+  document.getElementById('readerTextSettings').onclick=function(){
+    closeReader();
+    setTimeout(function(){document.getElementById('settingsOverlay').classList.add('show')},60);
+  };
+  document.getElementById('readerShare').onclick=async function(){
+    var d=currentDua();if(!d)return;
+    var text=[d.title,d.text,d.ref].filter(Boolean).join('\n\n');
+    try{
+      if(navigator.share)await navigator.share({title:d.title||'أدعيتي',text:text});
+      else{await navigator.clipboard.writeText(text);toast('تم نسخ الدعاء للمشاركة')}
+    }catch(err){if(!err||err.name!=='AbortError')toast('تعذر فتح المشاركة')}
+  };
+
+  var stage=document.getElementById('readerStage'),sx=0,sy=0;
+  stage.addEventListener('touchstart',function(e){var t=e.changedTouches[0];sx=t.clientX;sy=t.clientY},{passive:true});
+  stage.addEventListener('touchend',function(e){
+    var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
+    if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2)readerStep(dx<0?1:-1);
+  },{passive:true});
+  var mouseStart=null;
+  stage.addEventListener('pointerdown',function(e){if(e.pointerType==='mouse')mouseStart=e.clientX});
+  stage.addEventListener('pointerup',function(e){
+    if(mouseStart===null)return;
+    var dx=e.clientX-mouseStart;mouseStart=null;
+    if(Math.abs(dx)>70)readerStep(dx<0?1:-1);
+  });
+
+  var list=document.getElementById('list');
+  if(list)list.addEventListener('click',function(e){
+    if(e.target.closest('[data-action]'))return;
+    var card=e.target.closest('.card[data-id]');
+    if(!card)return;
+    var id=card.dataset.id,d=duas.find(function(x){return x.id===id});
+    if(d&&d.text){
+      e.preventDefault();e.stopPropagation();
+      openReader(id);
+    }
+  },true);
+})();
