@@ -920,3 +920,38 @@ body.reader-open{overflow:hidden!important}
   .reader-v2 .reader-heading-title{font-size:15px!important}
   .reader-v2 .reader-card{padding-left:17px!important;padding-right:17px!important}
 }
+
+/* ===== Full-screen Duaa Reader R10 refinements ===== */
+.reader-v2 .reader-info{display:none!important}
+.reader-v2 .reader-index-badge{display:none!important}
+.reader-v2 .reader-tools{
+  gap:2px!important;
+  padding:3px 5px!important;
+}
+.reader-v2 .reader-tool{
+  width:42px!important;
+  height:42px!important;
+}
+.reader-v2 .reader-edit{color:#73757a!important}
+.reader-v2 .reader-edit svg{width:23px!important;height:23px!important}
+.reader-v2 .reader-text{
+  font-size:clamp(20px,calc(var(--fs) * .82),30px)!important;
+  line-height:clamp(1.45,var(--lh),1.75)!important;
+}
+.reader-v2 .reader-ref-wrap{
+  margin-top:18px!important;
+  gap:0!important;
+}
+.reader-v2 .reader-bottom{
+  grid-template-columns:1fr 1fr!important;
+  min-height:62px!important;
+  padding-top:8px!important;
+}
+.reader-v2 .reader-count{grid-column:1!important;justify-self:start!important}
+.reader-v2 .reader-share{grid-column:2!important;justify-self:end!important}
+@media(max-width:520px){
+  .reader-v2 .reader-text{
+    font-size:clamp(19px,calc(var(--fs) * .78),28px)!important;
+  }
+  .reader-v2 .reader-bottom{min-height:58px!important}
+}
