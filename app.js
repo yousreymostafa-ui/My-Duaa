@@ -1439,3 +1439,52 @@ function saveEditor(){
     }
   },true);
 })();
+
+/* Full-screen Duaa reader R10 refinements */
+(function readerR10(){
+  if(window.__myDuaaReaderR10)return;
+  window.__myDuaaReaderR10=true;
+
+  function currentReaderDua(){
+    try{return readerItems&&readerItems.length?readerItems[readerIndex]:null}catch(e){return null}
+  }
+
+  function refineReader(){
+    var reader=document.getElementById('reader');
+    if(!reader)return;
+
+    var menu=document.getElementById('readerMenu');
+    var aa=document.getElementById('readerTextSettings');
+    if(menu)menu.remove();
+    if(aa)aa.remove();
+
+    var tools=reader.querySelector('.reader-tools');
+    if(tools && !document.getElementById('readerEdit')){
+      var edit=document.createElement('button');
+      edit.className='reader-tool reader-edit';
+      edit.id='readerEdit';
+      edit.setAttribute('aria-label','تعديل الدعاء');
+      edit.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4.2L19 9.2a2.1 2.1 0 0 0 0-3l-1.2-1.2a2.1 2.1 0 0 0-3 0L4 15.8V20Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m13.5 6.5 4 4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
+      tools.appendChild(edit);
+      edit.onclick=function(){
+        var d=currentReaderDua();
+        if(!d)return;
+        closeReader();
+        setTimeout(function(){openEditor(d.id)},60);
+      };
+    }
+
+    var info=reader.querySelector('.reader-info');
+    if(info)info.remove();
+
+    var badge=document.getElementById('readerIndexBadge');
+    if(badge)badge.remove();
+  }
+
+  refineReader();
+
+  var observer=new MutationObserver(function(){
+    if(document.getElementById('reader')?.classList.contains('show'))refineReader();
+  });
+  observer.observe(document.getElementById('reader'),{attributes:true,attributeFilter:['class']});
+})();
