@@ -20,7 +20,7 @@ function setSetting(k,v){settings[k]=v;persistSettings();apply()}
 function filteredDuas(){const q=normalizeArabic(duaaQuery);if(!q)return duas;return duas.filter(d=>normalizeArabic(`${d.title} ${d.text} ${d.ref}`).includes(q))}
 function cardMarkup(d){const showTitle=settings.showTitles&&!!d.title,imageOnly=!!d.image&&!d.text&&!showTitle&&!d.ref,hideMenu=imageOnly&&settings.imageMenuOnTap;return `<article class="card ${d.shape==='square'?'square':'wide'}${showTitle?'':' no-title'}${imageOnly?' image-only':''}${hideMenu?' hide-image-menu':''} fit-${d.imageFit}" data-id="${d.id}">${d.image?`<div class="card-image-wrap"><img class="card-image" src="${d.image}" alt=""></div>`:''}${showTitle?`<div class="card-head"><div class="title-wrap"><div class="card-badge">${badge(d.icon)}</div><div class="card-title">${esc(d.title)}</div></div></div>`:''}${d.text?`<p class="dua readable" data-reader-id="${d.id}">${esc(d.text)}</p>`:''}${d.ref?`<div class="ref">${esc(d.ref)}</div>`:''}<div class="card-actions"><button class="action action-more" data-action="menu" aria-label="خيارات الدعاء">${moreSvg}</button>${d.text?`<div class="action-sep"></div><button class="action" data-action="copy" aria-label="نسخ الدعاء">${copySvg}</button>`:''}</div></article>`}
 function groupedDuaMarkup(items){let out='',i=0;while(i<items.length){const d=items[i];if(d.shape==='square'){const group=[d];if(items[i+1]?.shape==='square'){group.push(items[i+1]);i+=1}out+=`<div class="square-row${group.length===1?' single':''}">${group.map(cardMarkup).join('')}</div>`}else out+=cardMarkup(d);i+=1}return out}
-function render(){const n=duas.length;$('#count').textContent=n===1?'دعاء واحد':n+' أدعية';const items=filteredDuas();$('#list').innerHTML=groupedDuaMarkup(items);$('#duaaEmpty').hidden=items.length>0;if(!items.length){$('#duaaEmpty').querySelector('strong').textContent=duaaQuery?'لا توجد نتائج':'لا توجد أدعية بعد';$('#duaaEmpty').querySelector('span').textContent=duaaQuery?'جرّب كلمة أخرى.':'أضف أول دعاء من زر الإضافة.'}$$('.card[data-id]').forEach(card=>card.addEventListener('click',async e=>{const action=e.target.closest('[data-action]')?.dataset.action,id=card.dataset.id;if(action){e.stopPropagation();if(action==='copy'){const d=duas.find(x=>x.id===id);if(!d)return;try{await navigator.clipboard.writeText((settings.showTitles&&d.title?d.title+'\n':'')+d.text)}catch{}toast('تم النسخ')}else if(action==='menu')openActions(id);return}const rt=e.target.closest('[data-reader-id]');if(rt){openReader(rt.dataset.readerId);return}if(card.classList.contains('image-only')&&settings.imageMenuOnTap)card.classList.toggle('actions-visible')}));renderPreview()}
+function render(){const n=duas.length;$('#count').textContent=n===1?'دعاء واحد':n+' أدعية';const items=filteredDuas();$('#list').innerHTML=groupedDuaMarkup(items);$('#duaaEmpty').hidden=items.length>0;if(!items.length){$('#duaaEmpty').querySelector('strong').textContent=duaaQuery?'لا توجد نتائج':'لا توجد أدعية بعد';$('#duaaEmpty').querySelector('span').textContent=duaaQuery?'جرّب كلمة أخرى.':'أضف أول دعاء من زر الإضافة.'}$$('.card[data-id]').forEach(card=>card.addEventListener('click',async e=>{const action=e.target.closest('[data-action]')?.dataset.action,id=card.dataset.id;if(action){e.stopPropagation();if(action==='copy'){const d=duas.find(x=>x.id===id);if(!d)return;try{await navigator.clipboard.writeText((settings.showTitles&&d.title?d.title+'\n':'')+d.text)}catch{}toast('تم النسخ')}else if(action==='menu')openActions(id);return}const d=duas.find(x=>x.id===id);if(d?.text){openReader(id);return}if(card.classList.contains('image-only')&&settings.imageMenuOnTap)card.classList.toggle('actions-visible')}));renderPreview()}
 function renderPreview(){const p=$('#preview');if(!p)return;const showTitle=settings.showTitles;p.innerHTML=`<article class="card${showTitle?'':' no-title'}">${showTitle?`<div class="card-head"><div class="title-wrap"><div class="card-badge">${badge('leaf')}</div><div class="card-title">دعاء طلب الرزق</div></div></div>`:''}<p class="dua">اللهم ارزقني رزقًا حلالًا طيبًا، وبارك لي فيه، واكفني بفضلك عمّن سواك.</p><div class="card-actions"><button class="action action-more">${moreSvg}</button><div class="action-sep"></div><button class="action">${copySvg}</button></div></article>`}
 function toggleSearch(box,input){box.hidden=!box.hidden;if(!box.hidden)setTimeout(()=>input.focus(),30)}
 $('#duaaSearchToggle').onclick=()=>toggleSearch($('#duaaSearchBox'),$('#duaaSearchInput'));$('#duaaSearchInput').oninput=e=>{duaaQuery=e.target.value;render()};$('#duaaSearchClear').onclick=()=>{$('#duaaSearchInput').value='';duaaQuery='';render();$('#duaaSearchInput').focus()};$('#linksSearchToggle').onclick=()=>toggleSearch($('#linksSearchBox'),$('#linksSearchInput'));$('#linksSearchInput').oninput=e=>{linksQuery=e.target.value;renderLinks()};$('#linksSearchClear').onclick=()=>{$('#linksSearchInput').value='';linksQuery='';renderLinks();$('#linksSearchInput').focus()};
@@ -1487,4 +1487,40 @@ function saveEditor(){
     if(document.getElementById('reader')?.classList.contains('show'))refineReader();
   });
   observer.observe(document.getElementById('reader'),{attributes:true,attributeFilter:['class']});
+})();
+
+/* Full-screen Duaa reader R11 click reliability */
+(function readerR11(){
+  if(window.__myDuaaReaderR11)return;
+  window.__myDuaaReaderR11=true;
+
+  window.openDuaaReader=function(id){
+    try{
+      readerItems=readableDuas();
+      if(!readerItems.length)return;
+      var idx=readerItems.findIndex(function(d){return d.id===id});
+      readerIndex=idx<0?0:idx;
+      updateReader();
+      var r=document.getElementById('reader');
+      r.classList.add('show');
+      r.setAttribute('aria-hidden','false');
+      document.body.classList.add('reader-open');
+    }catch(err){
+      console.error('Reader open failed',err);
+    }
+  };
+
+  var list=document.getElementById('list');
+  if(list){
+    list.addEventListener('click',function(e){
+      if(e.target.closest('[data-action]'))return;
+      var card=e.target.closest('.card[data-id]');
+      if(!card)return;
+      var d=duas.find(function(x){return x.id===card.dataset.id});
+      if(!d||!d.text)return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      window.openDuaaReader(d.id);
+    },true);
+  }
 })();
