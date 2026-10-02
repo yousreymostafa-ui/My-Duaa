@@ -13,7 +13,7 @@
 <link rel="icon" type="image/svg+xml" href="./logo.svg">
 <link rel="mask-icon" href="./logo.svg" color="#1f6e64">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon-v6.png">
-<link rel="stylesheet" href="./styles.css?v=11">
+<link rel="stylesheet" href="./styles.css?v=12">
 </head>
 <body>
 <main class="app">
@@ -59,8 +59,8 @@
 <div class="overlay" id="linkActionOverlay"><section class="sheet action-sheet"><div class="handle"></div><div class="sheet-head"><h2>خيارات الرابط</h2><button class="close" id="linkActionClose">×</button></div><div class="action-grid"><button class="secondary" id="linkActionOpen">فتح الرابط</button><button class="secondary" id="linkActionEdit">تعديل</button><button class="secondary danger-text full-action" id="linkActionDelete">حذف</button></div></section></div>
 <div class="overlay" id="reorderOverlay"><section class="sheet reorder-sheet"><div class="handle"></div><div class="sheet-head"><div><h2>إعادة ترتيب الأدعية</h2><div class="hint">اضغط مطولًا على البطاقة أو علامة السحب، ثم اسحبها مباشرة إلى مكانها. الأسهم متاحة كبديل.</div></div><button class="close" id="reorderClose">×</button></div><div class="reorder-list" id="reorderList"></div><button class="primary reorder-done" id="reorderDone">تم</button></section></div>
 
-<div class="reader" id="reader" aria-hidden="true"><div class="reader-top"><button class="reader-close" id="readerClose" aria-label="إغلاق">×</button><div class="reader-count" id="readerCount"></div></div><div class="reader-stage" id="readerStage"><article class="reader-card"><div class="reader-title" id="readerTitle"></div><img class="reader-image" id="readerImage" alt="" hidden><div class="reader-text" id="readerText"></div><div class="reader-ref" id="readerRef"></div></article></div><div class="reader-hint">اسحب يمينًا أو يسارًا للتنقل</div></div>
+<div class="reader reader-v12" id="reader" aria-hidden="true"><div class="reader-top"><button class="reader-close" id="readerClose" aria-label="رجوع">‹</button><div class="reader-heading-title" id="readerHeaderTitle">دعاء</div><div class="reader-tools"><button class="reader-tool" id="readerFavorite" aria-label="إضافة للمفضلة"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.9L12 16.52 6.7 19.31l1.01-5.9-4.29-4.18 5.93-.86L12 3Z" fill="currentColor"/></svg></button><button class="reader-tool" id="readerEdit" aria-label="تعديل الدعاء"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4.2L19 9.2a2.1 2.1 0 0 0 0-3l-1.2-1.2a2.1 2.1 0 0 0-3 0L4 15.8V20Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m13.5 6.5 4 4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button></div></div><div class="reader-progress-block"><div class="reader-progress-text" id="readerProgressText">0%</div><div class="reader-progress-track"><div class="reader-progress-fill" id="readerProgressFill"></div></div></div><div class="reader-stage" id="readerStage"><article class="reader-card"><div class="reader-title" id="readerTitle"></div><img class="reader-image" id="readerImage" alt="" hidden><div class="reader-text" id="readerText"></div><div class="reader-ref" id="readerRef"></div><div class="reader-dots" id="readerDots" aria-hidden="true"></div></article></div><div class="reader-bottom"><div class="reader-count" id="readerCount"></div><button class="reader-share" id="readerShare" aria-label="مشاركة الدعاء"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0-11L8.5 6.5M12 3l3.5 3.5M7 10H5.8A1.8 1.8 0 0 0 4 11.8v6.4A1.8 1.8 0 0 0 5.8 20h12.4a1.8 1.8 0 0 0 1.8-1.8v-6.4a1.8 1.8 0 0 0-1.8-1.8H17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
 <div class="toast" id="toast">تم</div>
-<script src="./app.js?v=11"></script>
+<script src="./app.js?v=12"></script>
 </body>
 </html>
