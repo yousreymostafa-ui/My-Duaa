@@ -846,3 +846,15 @@ body.reader-open{overflow:hidden!important}
 .reader-v12 .reader-share svg{width:29px;height:29px}
 .reader-v12 .reader-hint{display:none!important}
 @media(max-width:520px){.reader.reader-v12{padding-left:12px!important;padding-right:12px!important}.reader-v12 .reader-top{grid-template-columns:auto minmax(0,1fr) 44px!important;gap:7px!important}.reader-v12 .reader-close{width:44px!important;height:44px!important;font-size:37px!important}.reader-v12 .reader-tool{width:38px;height:38px}.reader-v12 .reader-heading-title{font-size:17px!important}.reader-v12 .reader-card{border-radius:30px!important;padding:26px 18px 22px!important}.reader-v12 .reader-text{font-size:clamp(18px,calc(var(--fs) * .74),26px)!important}.reader-v12 .reader-bottom{min-height:54px!important}}
+
+/* ===== Tashkeel editor tool R13 ===== */
+.tashkeel-tool{margin-top:8px}
+.tashkeel-toggle{min-width:92px!important}
+.tashkeel-toggle.active{background:var(--accent)!important;color:#fff!important;border-color:var(--accent)!important}
+.tashkeel-panel{margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:16px;background:var(--surface2)}
+.tashkeel-marks{display:grid;grid-template-columns:repeat(8,minmax(34px,1fr));gap:6px;direction:rtl}
+.tashkeel-mark{height:40px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--text);font-size:22px;line-height:1;display:grid;place-items:center;padding:0}
+.tashkeel-mark:active{transform:scale(.96);background:var(--bg2)}
+.tashkeel-remove{margin-top:8px;width:100%;min-height:38px;border:0;border-radius:11px;background:transparent;color:var(--muted);font-weight:750}
+.tashkeel-hint{text-align:center;color:var(--muted);font-size:10px;margin-top:4px}
+@media(max-width:430px){.tashkeel-marks{grid-template-columns:repeat(4,1fr)}.tashkeel-mark{height:38px}}
