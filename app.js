@@ -1313,3 +1313,49 @@ function saveEditor(){
   document.head.appendChild(s);
   try{apply()}catch{}
 })();
+
+/* Duaa editor Tashkeel tool R13 */
+(function tashkeelToolR13(){
+  if(window.__myDuaaTashkeelR13)return;
+  window.__myDuaaTashkeelR13=true;
+  var toggle=document.getElementById('tashkeelToggle');
+  var panel=document.getElementById('tashkeelPanel');
+  var input=document.getElementById('duaInput');
+  var remove=document.getElementById('removeTashkeelBtn');
+  if(!toggle||!panel||!input)return;
+
+  toggle.addEventListener('click',function(){
+    panel.hidden=!panel.hidden;
+    toggle.classList.toggle('active',!panel.hidden);
+    if(!panel.hidden)input.focus({preventScroll:true});
+  });
+
+  panel.querySelectorAll('[data-mark]').forEach(function(btn){
+    btn.addEventListener('mousedown',function(e){e.preventDefault()});
+    btn.addEventListener('click',function(){
+      var mark=btn.dataset.mark||'';
+      var start=input.selectionStart==null?input.value.length:input.selectionStart;
+      var end=input.selectionEnd==null?start:input.selectionEnd;
+      if(end>start){
+        var selected=input.value.slice(start,end);
+        input.setRangeText(selected+mark,start,end,'end');
+      }else{
+        input.setRangeText(mark,start,end,'end');
+      }
+      input.dispatchEvent(new Event('input',{bubbles:true}));
+      input.focus({preventScroll:true});
+    });
+  });
+
+  if(remove)remove.addEventListener('click',function(){
+    var start=input.selectionStart==null?0:input.selectionStart;
+    var end=input.selectionEnd==null?input.value.length:input.selectionEnd;
+    var all=end<=start;
+    if(all){start=0;end=input.value.length}
+    var chunk=input.value.slice(start,end).replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g,'');
+    input.setRangeText(chunk,start,end,'select');
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    input.focus({preventScroll:true});
+    try{toast('تمت إزالة التشكيل')}catch(e){}
+  });
+})();
